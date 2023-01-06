@@ -3,7 +3,6 @@ http://grail.eecs.csuohio.edu/~somos/picky.html. It was written by Michael
 Somos. I claim no authorship whatever.
 
 
-
 README            for picky version 2.6       14 Dec 2014
 
 Picky is a simple "C" program for validating ASCII text files.
@@ -44,8 +43,3 @@ UNINSTALLATION
 To uninstall, just delete "picky" and "picky.1" from where you
 copied them, delete the "picky-2.6" directory, and delete the
 "picky-2.6.tar.gz" tarball file.
-
-BUGS
-
-Report any bugs to Michael Somos <ms639@georgetown.edu>
-Home page for picky: http://grail.eecs.csuohio.edu/~somos/picky.html
