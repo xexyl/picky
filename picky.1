@@ -1,0 +1,134 @@
+.\"*********************
+.\"* picky.1           *
+.\"* for picky 2.6 by  *
+.\"* Michael Somos     *
+.\"*********************
+.\" This is nroff -man (or troff -man) code.
+.\" You can view this file with:
+.\" $ nroff -man picky.1 | more
+.TH PICKY "1" "Dec 2014" "picky 2.6" "User Commands"
+.SH NAME
+picky \- plain ASCII text file validation tool.
+.SH SYNOPSIS
+.B picky
+.RI [ [options] [inputfile] ] ...
+.SH DESCRIPTION
+Many parts of UNIX-like systems depend on plain ASCII text files.
+.B picky
+checks input files which are supposed to be plain ASCII text files
+for violation errors of one or more rules and reports them to standard
+output.  It reads and checks standard input if either given no file
+names, or else the file name -.
+.SH OPTIONS
+.TP
+\-
+Input from stdin: default if no inputfile.
+.TP
+\--
+End of option arguments.
+.TP
+\fB\-8\fR
+High 8\-bit characters (128..255) okay.
+.HP
+\fB\-a\fR<n>  Maximum errors to abort file is n (10).
+.TP
+\fB\-a\fR
+No maximum errors to abort file.
+.HP
+\fB\-A\fR<n>  Maximum error files to exit is n (10).
+.TP
+\fB\-A\fR
+No maximum error files to exit.
+.TP
+\fB\-b\fR
+Backspace anywhere okay.
+.TP
+\fB\-c\fR
+CRLF line endings only.
+.TP
+\fB\-d\fR
+DOS/Windows mode. Implies -c and -f.
+.HP
+\fB\-e\fR<n>  Maximum errors logged is n (10).
+.TP
+\fB\-e\fR
+No maximum errors.
+.TP
+\fB\-f\fR
+Missing final LF okay.
+.TP
+\fB\-h\fR
+Print brief help message and exit.
+.HP
+\fB\-o\fR<n>  ASCII code n anywhere okay.
+.TP
+\fB\-o\fR
+ASCII nulls anywhere okay.
+.TP
+\fB\-q\fR
+Quiet mode. No standard output produced.
+.TP
+\fB\-r\fR
+Carriage Return anywhere okay.
+.TP
+\fB\-s\fR
+Trailing white space not okay.
+.HP
+\fB\-t\fR<n>  Tab spacing width is n (8).
+.TP
+\fB\-t\fR
+Tab anywhere not okay.
+.TP
+\fB\-u\fR
+UNIX mode. LF line ending always (default).
+.TP
+\fB\-v\fR
+Verbose mode (repeat for more verbose).
+.TP
+\fB\-V\fR
+Print version and exit.
+.HP
+\fB\-w\fR<n>  Maximum line width is n (80).
+.TP
+\fB\-w\fR
+No maximum line width.
+.SH EXAMPLES
+Validate some text files in a directory. Consider any trailing
+spaces at the end of a line as an error. Any tab characters
+are considered an error except in Makefile.
+.PP
+$ picky -s Makefile -t *.txt *.tex *.html
+.PP
+Validate DOS and UNIX files with possible UTF-8 characters.
+.PP
+$ picky -8 -d dos*.txt *.htm -u unix*.txt *.html
+.SH UNICODE
+Note that
+.B picky
+knows nothing about the various Unicode text file encodings.
+It would be nice, but difficult, to allow it to validate
+Unicode text files as well as ASCII text files.  However, using
+option -8 allows some UTF-8 encoded Unicode text files to be
+valid even if they are not really checked for valid Unicode, and
+even if line width and column calculations will be inaccurate in
+such cases.
+.SH "RETURN VALUE"
+.B picky
+returns a 0 (zero) exit status if all specified files it can
+read are okay, otherwise 1. It ignores directories. It skips
+files that are unreadable although it outputs an appropriate
+message.
+.SH VERSION
+This man page describes version 2.6 of
+.B
+picky.
+.SH THANKS
+Suzanne Skinner for first version.
+.br
+Landon Curt Noll for suggestions.
+.SH AUTHOR
+Michael Somos <ms639@georgetown.edu>
+.SH "HOME PAGE"
+http://grail.eecs.csuohio.ede/~somos/picky.html
+.SH "SEE ALSO"
+file(1)
