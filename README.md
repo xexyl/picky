@@ -31,32 +31,29 @@ work.  The following files are provided in this repo:
 For most environments except DOS/Windows the simple `Makefile` provided will
 create the executable.
 
-Once you've cloned this repo you can just run `make` to compile:
+To clone and compile you can do e.g.:
 
 
 	$ git clone https://github.com/xexyl/picky
+	$ cd picky
 	$ make
 
-
-You should then copy the executable to a directory
-somewhere in your `$PATH`. You may also copy the man page `picky.1` to an
-appropriate location.
 
 ## Installing
 
 If you don't have root privileges and/or you want to install it for your own
 use, just copy the executable file to some directory you have write privileges
-to and ensure that that directory is in your $PATH. A typical normal user build,
-test and install sequence of commands (assuming both `~/bin` and `~/man/man1` exist,
-`~/bin` is in your `$PATH`, `~/man` in `$MANPATH`) is:
+to and ensure that that directory is in your `$PATH`. For the man page copy the
+`picky.1` file to a directory that is in your `$MANPATH`. For example:
 
 
 	$ cp picky   ~/bin/
 	$ cp picky.1 ~/man/man1/
 
-
  
 ## Example
+
+To test the picky files themselves:
 
 
     $ ./picky -s Makefile -t picky.*
