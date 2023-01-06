@@ -39,7 +39,7 @@ Once you've cloned this repo you can just run `make` to compile:
 
 
 You should then copy the executable to a directory
-somewhere in your `$PATH`. You may also copy the man page `picky.1 to an
+somewhere in your `$PATH`. You may also copy the man page `picky.1` to an
 appropriate location.
 
 ## Installing
@@ -47,8 +47,8 @@ appropriate location.
 If you don't have root privileges and/or you want to install it for your own
 use, just copy the executable file to some directory you have write privileges
 to and ensure that that directory is in your $PATH. A typical normal user build,
-test and install sequence of commands (assuming both ~/bin and ~/man/man1 exist,
-~/bin is in your $PATH, ~/man in $MANPATH) is:
+test and install sequence of commands (assuming both `~/bin` and `~/man/man1` exist,
+`~/bin` is in your `$PATH`, `~/man` in `$MANPATH`) is:
 
 
 	$ cp picky   ~/bin/
