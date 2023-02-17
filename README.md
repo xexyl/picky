@@ -20,11 +20,13 @@ run under UNIX-like systems but all you really need is a C compiler to build an
 executable program.  Michael did not test the program under Windows but it may
 work.  The following files are provided in this repo:
 
-      Makefile   A simple Makefile for compiling the tool.
-      picky.1    The man page for picky.
-      picky.c    The C source code for picky.
-      picky.txt  The man page in plain text for picky.
-      README.md  This file.
+```
+Makefile   A simple Makefile for compiling the tool.
+picky.1    The man page for picky.
+picky.c    The C source code for picky.
+picky.txt  The man page in plain text for picky.
+README.md  This file.
+```
 
 ## Compilation
 
@@ -34,10 +36,11 @@ create the executable.
 To clone and compile you can do e.g.:
 
 
-	$ git clone https://github.com/xexyl/picky
-	$ cd picky
-	$ make
-
+```sh
+git clone https://github.com/xexyl/picky
+cd picky
+make
+```
 
 ## Installing
 
@@ -47,8 +50,10 @@ to and ensure that that directory is in your `$PATH`. For the man page copy the
 `picky.1` file to a directory that is in your `$MANPATH`. For example:
 
 
-	$ cp picky   ~/bin/
-	$ cp picky.1 ~/man/man1/
+```sh
+cp picky   ~/bin/
+cp picky.1 ~/man/man1/
+``
 
  
 ## Example
