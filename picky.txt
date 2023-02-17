@@ -1,7 +1,7 @@
 PICKY(1)                  User Commands                  PICKY(1)
 
 NAME
-       picky - plain ASCII text file validation tool.
+       picky - plain ASCII text file validation tool
 
 SYNOPSIS
        picky [[options][inputfile]]...
@@ -74,7 +74,7 @@ EXAMPLES
 
        $ picky -s Makefile -t *.txt *.tex *.html
 
-       Validate DOS and UNIX files with  possible  UTF-8  charac-
+       Validate DOS and UNIX files with  possible  UTF-8  charac‐
        ters.
 
        $ picky -8 -d dos*.txt *.htm -u unix*.txt *.html
@@ -91,7 +91,7 @@ UNICODE
 
 RETURN VALUE
        picky returns a 0 (zero)  exit  status  if  all  specified
-       files it can read are okay, otherwise 1. It ignores direc-
+       files it can read are okay, otherwise 1. It ignores direc‐
        tories. It skips files that  are  unreadable  although  it
        outputs an appropriate message.
 
@@ -106,7 +106,7 @@ AUTHOR
        Michael Somos <ms639@georgetown.edu>
 
 HOME PAGE
-       http://grail.eecs.csuohio.edu/~somos/picky.html
+       http://grail.eecs.csuohio.ede/~somos/picky.html
 
 SEE ALSO
        file(1)
