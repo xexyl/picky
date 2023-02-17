@@ -41,12 +41,13 @@ MAN1DIR= /usr/local/man/man1
 RM= rm
 CP= cp
 CHMOD= chmod
+MAN= man
 
 DESTDIR= /usr/local/bin
 
 TARGETS= picky
 
-all: ${TARGETS}
+all: ${TARGETS} picky.txt
 
 # rules, not file targets
 #
@@ -54,6 +55,10 @@ all: ${TARGETS}
 
 picky: picky.c
 	${CC} ${CFLAGS} picky.c -o $@
+
+picky.txt: picky.1
+	${RM} -f $@
+	MANWIDTH=67 ${MAN} picky.1 > $@
 
 clean:
 	${RM} -f picky.o
