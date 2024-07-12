@@ -3,7 +3,13 @@
 # picky - plain ASCII text file validation tool
 #
 # This Makefile is:
-# Copyright (c) 2022,2023 by Landon Curt Noll.  All Rights Reserved.
+# Copyright (c) 2022-2024 by Landon Curt Noll.  All Rights Reserved.
+#
+# NOTE: The source code was once available under:
+#
+#   http://grail.eecs.csuohio.edu/~somos/picky.html
+#
+# It was written by Michael Somos.  We are not the author of this code.
 #
 # Permission to use, copy, modify, and distribute this software and
 # its documentation for any purpose and without fee is hereby granted,
@@ -28,46 +34,75 @@
 # Share and enjoy! :-)
 
 
+# tools
+#
+CC= cc
+CHMOD= chmod
+CP= cp
+INSTALL= install
+MAN= man
+RM= rm
 SHELL= bash
 
-CC= cc
+
+# how to compile
+#
 CFLAGS= -O3 -g3
-RM= rm
-CP= cp
-CHMOD= chmod
-INSTALL= install
+
+
+# where and what to install
+#
+PROG= picky
+#
 DESTDIR= /usr/local/bin
 MAN1DIR= /usr/local/man/man1
-RM= rm
-CP= cp
-CHMOD= chmod
-MAN= man
+#
+TARGETS= ${PROG}
 
-DESTDIR= /usr/local/bin
 
-TARGETS= picky
+# default and first rule
+#
+all: ${TARGETS}
 
-all: ${TARGETS} picky.txt
 
 # rules, not file targets
 #
 .PHONY: all configure clean clobber install
 
-picky: picky.c
-	${CC} ${CFLAGS} picky.c -o $@
 
-picky.txt: picky.1
+# how to build
+#
+${PROG}.o: ${PROG}.c
 	${RM} -f $@
-	MANWIDTH=67 ${MAN} picky.1 > $@
+	${CC} ${CFLAGS} ${PROG}.c -c
+
+${PROG}: ${PROG}.o
+	${RM} -f $@
+	${CC} ${CFLAGS} ${PROG}.o -o $@
+
+
+test.txt: ${PROG}.1 ${PROG}
+	${RM} -f $@
+	MANWIDTH=67 ${MAN} ./${PROG}.1 > $@
+
+# utility rules
+#
+test: ${PROG} ${PROG}.1 ${PROG}.c test.txt
+	./${PROG} -s Makefile -t ${PROG}.1 ${PROG}.c
+	./${PROG} -t -b test.txt
 
 clean:
-	${RM} -f picky.o
+	${RM} -f ${PROG}.o
 
 clobber: clean
 	${RM} -f ${TARGETS}
 
 install: all
 	${INSTALL} -m 0775 -d ${DESTDIR}
-	${INSTALL} ${TARGETS} ${DESTDIR}
+	${INSTALL} -m 0555 ${PROG} ${DESTDIR}
 	${INSTALL} -m 0775 -d ${MAN1DIR}
-	${INSTALL} picky.1 ${MAN1DIR}
+	${INSTALL} -m 0444 ${PROG}.1 ${MAN1DIR}
+
+uninstall:
+	-${RM} -f -v ${DESTDIR}/${PROG}
+	-${RM} -f -v ${MAN1DIR}/${PROG}.1
