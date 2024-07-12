@@ -42,7 +42,7 @@ To clone and compile you can do e.g.:
 ```
 
 
-## To install"
+## To install:
 
 If you have root privileges you can just run:
 
