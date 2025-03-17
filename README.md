@@ -118,3 +118,6 @@ To uninstall:
 ```sh
     make uninstall
 ```
+
+
+To report a security issue, please visit "[Reporting Security Issues](https://github.com/lcn2/picky/security/policy)".
