@@ -3,7 +3,8 @@
 # picky - plain ASCII text file validation tool
 #
 # This Makefile is:
-# Copyright (c) 2022-2024 by Landon Curt Noll.  All Rights Reserved.
+#
+# Copyright (c) 2022-2025 by Landon Curt Noll.  All Rights Reserved.
 #
 # NOTE: The source code was once available under:
 #
@@ -29,46 +30,55 @@
 # OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
 # PERFORMANCE OF THIS SOFTWARE.
 #
-# chongo (Landon Curt Noll, http://www.isthe.com/chongo/index.html) /\oo/\
+# chongo (Landon Curt Noll) /\oo/\
 #
-# Share and enjoy! :-)
+# http://www.isthe.com/chongo/index.html
+# https://github.com/lcn2
+#
+# Share and enjoy!  :-)
 
 
-# tools
-#
+#############
+# utilities #
+#############
+
 CC= cc
 CHMOD= chmod
 CP= cp
+ID= id
 INSTALL= install
-MAN= man
 RM= rm
 SHELL= bash
 
+#CFLAGS= -O3 -g3 --pedantic -Wall -Werror
+CFLAGS= -O3 -g3 --pedantic -Wall
 
-# how to compile
+
+######################
+# target information #
+######################
+
+# V=@:  do not echo debug statements (quiet mode)
+# V=@   echo debug statements (debug / verbose mode)
 #
-CFLAGS= -O3 -g3
+V=@:
+#V=@
 
+PREFIX= /usr/local
+DESTDIR= ${PREFIX}/bin
+MAN1DIR= ${PREFIX}/man/man1
 
-# where and what to install
-#
 PROG= picky
-#
-DESTDIR= /usr/local/bin
-MAN1DIR= /usr/local/man/man1
-#
 TARGETS= ${PROG}
 
 
-# default and first rule
-#
+######################################
+# all - default rule - must be first #
+######################################
+
 all: ${TARGETS}
-
-
-# rules, not file targets
-#
-.PHONY: all configure clean clobber install
-
+	${V} echo DEBUG =-= $@ start =-=
+	${V} echo DEBUG =-= $@ end =-=
 
 # how to build
 #
@@ -80,7 +90,6 @@ ${PROG}: ${PROG}.o
 	${RM} -f $@
 	${CC} ${CFLAGS} ${PROG}.o -o $@
 
-
 test.txt: ${PROG}.1 ${PROG}
 	${RM} -f $@
 	MANWIDTH=67 ${MAN} ./${PROG}.1 > $@
@@ -91,18 +100,44 @@ test: ${PROG} ${PROG}.1 ${PROG}.c test.txt
 	./${PROG} -s Makefile -t ${PROG}.1 ${PROG}.c
 	./${PROG} -t -b test.txt
 
+
+#################################################
+# .PHONY list of rules that do not create files #
+#################################################
+
+.PHONY: all test configure clean clobber install uninstall
+
+
+###################################
+# standard Makefile utility rules #
+###################################
+
+configure:
+	${V} echo DEBUG =-= $@ start =-=
+	${V} echo DEBUG =-= $@ end =-=
+
 clean:
+	${V} echo DEBUG =-= $@ start =-=
 	${RM} -f ${PROG}.o
+	${V} echo DEBUG =-= $@ end =-=
 
 clobber: clean
-	${RM} -f ${TARGETS}
+	${V} echo DEBUG =-= $@ start =-=
+	${RM} -f ${TARGETS} test.txt
+	${V} echo DEBUG =-= $@ end =-=
 
 install: all
-	${INSTALL} -m 0775 -d ${DESTDIR}
-	${INSTALL} -m 0555 ${PROG} ${DESTDIR}
+	${V} echo DEBUG =-= $@ start =-=
+	@if [[ $$(${ID} -u) != 0 ]]; then echo "ERROR: must be root to make $@" 1>&2; exit 2; fi
+	${INSTALL} -d -m 0755 ${DESTDIR}
+	${INSTALL} -m 0555 ${TARGETS} ${DESTDIR}
 	${INSTALL} -m 0775 -d ${MAN1DIR}
 	${INSTALL} -m 0444 ${PROG}.1 ${MAN1DIR}
+	${V} echo DEBUG =-= $@ end =-=
 
 uninstall:
-	-${RM} -f -v ${DESTDIR}/${PROG}
-	-${RM} -f -v ${MAN1DIR}/${PROG}.1
+	${V} echo DEBUG =-= $@ start =-=
+	@if [[ $$(${ID} -u) != 0 ]]; then echo "ERROR: must be root to make $@" 1>&2; exit 3; fi
+	${RM} -f -v ${DESTDIR}/${PROG}
+	${RM} -f -v ${MAN1DIR}/${PROG}.1
+	${V} echo DEBUG =-= $@ end =-=

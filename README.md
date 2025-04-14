@@ -120,4 +120,6 @@ To uninstall:
 ```
 
 
+# Reporting Security Issues
+
 To report a security issue, please visit "[Reporting Security Issues](https://github.com/lcn2/picky/security/policy)".
